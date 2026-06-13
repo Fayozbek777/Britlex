@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "about": "About Us",
+    "pricing": "Pricing",
+    "contacts": "Contacts"
+  },
+  "auth": {
+    "signin": "Sign in"
+  },
+  "hero": {
+    "title": "Learn Any Foreign Language",
+    "subtitle": "With our teachers who write a program for each student, you will be able to make your first sketch after the first lesson.",
+    "cta": "Get started"
+  },
+
+  "skills": {
+    "title": "Skills",
+    "more": "Learn more",
+    "speaking": {
+      "title": "Speaking",
+      "desc": "Improve your English skills and confidence. Live classes and interactive lessons online. 20% extra free for a limited time only. Learn English online and improve your skills through our high-quality courses."
+    },
+    "writing": {
+      "title": "Writing",
+      "desc": "One of the most important and extensive areas of natural science, the science that studies substances, also their composition."
+    },
+    "reading": {
+      "title": "Reading",
+      "desc": "Perception and response actions of the user resulting from the use and/or upcoming use of the product, system or service."
+    },
+    "listening": {
+      "title": "Listening",
+      "desc": "Here you can find activities to practise your listening skills. Listening will help you to improve your understanding of the language."
+    }
+  },
+
+  "about": {
+    "title": "About Us",
+    "desc": "The model offers a framework for discussing problems related to the user's experience, as well as possible ways and means of solving them. Application development begins at the top level (strategy), where the future software product is described quite abstractly from the point of view of the expectations of both users and the customer.",
+    "pupils": "Pupils",
+    "teachers": "Teachers",
+    "languages": "Foreign languages"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "period": "per month",
+    "cta": "Contact",
+    "course1": {
+      "title": "Self-study online course",
+      "desc": "Start learning English online in live classes with qualified EC teachers and students from all over the world."
+    },
+    "course2": {
+      "title": "Live online classes",
+      "desc": "Interactive group classes with expert teachers. Free 7-day trial to test your skills."
+    },
+    "course3": {
+      "title": "Personal Tuition",
+      "desc": "Online one-to-one English tutoring – enjoy our first session for only $1."
+    }
+  },
+
+  "contact": {
+    "title": "Contact Us",
+    "desc": "Discover your current English level by taking our free online English test. Sign up to our newsletter for learning tips and free resources.",
+    "name_placeholder": "Your Name",
+    "cta": "Subscribe",
+    "success": "Successfully subscribed! Redirecting...",
+    "error": "Please enter a valid phone number"
+  }
+}

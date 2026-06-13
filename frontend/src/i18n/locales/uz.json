@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "skills": "Ko'nikmalar",
+    "about": "Biz haqimizda",
+    "pricing": "Narxlar",
+    "contacts": "Aloqa"
+  },
+  "auth": {
+    "signin": "Kirish"
+  },
+
+  "hero": {
+    "title": "Istalgan xorijiy tilni o'rganing",
+    "subtitle": "Har bir talaba uchun maxsus dastur tuzadigan o'qituvchilarimiz bilan siz birinchi darsdanoq dastlabki natijaga ershasiz.",
+    "cta": "Boshlash"
+  },
+
+  "skills": {
+    "title": "Ko'nikmalar",
+    "more": "Batafsil",
+    "speaking": {
+      "title": "Gapirish",
+      "desc": "Ingliz tili ko'nikmalaringizni va o'zingizga bo'lgan ishonchni rivojlantiring. Jonli darslar va interaktiv onlayn mashg'ulotlar. Kattalar uchun maxsus ishlab chiqilgan yuqori sifatli kurslar."
+    },
+    "writing": {
+      "title": "Yozish",
+      "desc": "Til o'rganishning eng muhim va keng qamrovli yo'nalishlaridan biri. Mukammal akademik va biznes matnlarni yaratish uchun grammatika va uslubiyatni o'zlashtiring."
+    },
+    "reading": {
+      "title": "O'qish",
+      "desc": "Matnli ma'lumotlarni qabul qilish va tahlil qilish. Murakkab nashrlar, tizimli materiallar yoki ixtisoslashtirilgan adabiyotlarning mohiyatini tezda tushunishni o'rganing."
+    },
+    "listening": {
+      "title": "Tinglash",
+      "desc": "Bu yerda siz tinglash qobiliyatini rivojlantirish uchun mashqlarni topasiz. Tinglash jonli nutqni yaxshi tushunishingizga yordam beradi."
+    }
+  },
+
+  "about": {
+    "title": "Biz haqimizda",
+    "desc": "Bizning modelimiz foydalanuvchi tajribasi bilan bog'liq muammolarni hal qilish, shuningdek, ularni bartaraf etishning samarali usullari uchun aniq tuzilmani taklif etadi. Shaxsiy dasturlarni ishlab chiqish strategik darajadan boshlanadi, bu yerda kelgusi o'quv jarayoni talabalar va o'qituvchilarning chuqur kutilmalari asosida shakllantiriladi.",
+    "pupils": "O'quvchilar",
+    "teachers": "O'qituvchilar",
+    "languages": "Xorijiy tillar"
+  },
+
+  "pricing": {
+    "title": "Narxlar",
+    "period": "oyiga",
+    "cta": "Bog'lanish",
+    "course1": {
+      "title": "Mustaqil o'rganish kursi",
+      "desc": "Butun dunyodagi malakali o'qituvchilar va talabalar bilan jonli darslarda ingliz tilini onlayn o'rganishni boshlang."
+    },
+    "course2": {
+      "title": "Jonli onlayn darslar",
+      "desc": "Ekspert o'qituvchilar bilan interaktiv guruh darslari. Sinov uchun 7 kunlik bepul davr."
+    },
+    "course3": {
+      "title": "Shaxsiy ta'lim",
+      "desc": "Onlayn yuzma-yuz ingliz tili darslari – birinchi mashg'ulotdan atigi $1 evaziga bahramand bo'ling."
+    }
+  },
+
+  "contact": {
+    "title": "Biz bilan bog'lanish",
+    "desc": "Bepul onlayn ingliz tili testimizni topshirish orqali joriy darajangizni bilib oling. O'quv maslahatlari va bepul resurslarni olish uchun axborot bülletenimizga a'zo bo'ling.",
+    "name_placeholder": "Sizning ismingiz",
+    "cta": "Obuna bo'lish",
+    "success": "Muvaffaqiyat! Yo'naltirilmoqda...",
+    "error": "Iltimos, telefon raqamini tog'ri kiriting"
+  }
+}
