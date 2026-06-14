@@ -23,3 +23,15 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Flask instance folder (Твоя база данных тут!)
+backend/instance/
+*.db
+
+# Локальные SSL сертификаты и ключи безопасности
+*.pem
+*-key.pem
