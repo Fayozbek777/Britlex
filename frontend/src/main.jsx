@@ -18,7 +18,6 @@ const SmoothScrollProvider = ({ children }) => {
       smoothHandheld: true,
     });
 
-    // ФИКС: Привязываем чистый инстанс напрямую к глобальному объекту window
     window.lenis = lenis;
 
     function raf(time) {
@@ -30,7 +29,7 @@ const SmoothScrollProvider = ({ children }) => {
 
     return () => {
       lenis.destroy();
-      window.lenis = null; // Чистим за собой
+      window.lenis = null;
     };
   }, []);
 

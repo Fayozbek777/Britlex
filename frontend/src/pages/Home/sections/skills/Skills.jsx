@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import gsap from "gsap";
@@ -11,9 +11,11 @@ import skillImage2 from "../../../../assets/images/skills-image2.png";
 import skillImage3 from "../../../../assets/images/skills-image3.png";
 import skillImage4 from "../../../../assets/images/skills-image4.png";
 import Button from "../../../../components/ui/button/Button";
+import Modal from "../../../../components/ui/modal/Modal";
 
 const Skills = () => {
   const { t } = useTranslation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -90,7 +92,10 @@ const Skills = () => {
               </p>
             </div>
             <div className="pt-8 flex items-center justify-between mt-auto">
-              <Button className="py-2.5 px-6 text-sm">
+              <Button
+                className="py-2.5 px-6 text-sm"
+                setIsOpen={setIsModalOpen}
+              >
                 {t("skills.more")}
               </Button>
               <motion.div variants={arrowVariants}>
@@ -121,7 +126,10 @@ const Skills = () => {
               </p>
             </div>
             <div className="pt-6 flex items-center justify-between mt-auto">
-              <Button className="py-2.5 px-6 text-sm">
+              <Button
+                className="py-2.5 px-6 text-sm"
+                setIsOpen={setIsModalOpen}
+              >
                 {t("skills.more")}
               </Button>
               <motion.div variants={arrowVariants}>
@@ -152,7 +160,10 @@ const Skills = () => {
               </p>
             </div>
             <div className="pt-6 flex items-center justify-between mt-auto">
-              <Button className="py-2.5 px-6 text-sm">
+              <Button
+                className="py-2.5 px-6 text-sm"
+                setIsOpen={setIsModalOpen}
+              >
                 {t("skills.more")}
               </Button>
               <motion.div variants={arrowVariants}>
@@ -184,7 +195,10 @@ const Skills = () => {
                 </p>
               </div>
               <div className="pt-5 flex items-center justify-between mt-auto">
-                <Button className="py-2.5 px-6 text-sm">
+                <Button
+                  className="py-2.5 px-6 text-sm"
+                  setIsOpen={setIsModalOpen}
+                >
                   {t("skills.more")}
                 </Button>
                 <motion.div variants={arrowVariants}>
@@ -195,6 +209,9 @@ const Skills = () => {
           </motion.div>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      )}
     </section>
   );
 };

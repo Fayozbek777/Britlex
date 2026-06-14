@@ -2,71 +2,98 @@
   "nav": {
     "home": "Home",
     "skills": "Skills",
-    "about": "About Us",
+    "about": "About",
     "pricing": "Pricing",
     "contacts": "Contacts"
   },
-  "auth": {
+  "auth1": {
     "signin": "Sign in"
   },
   "hero": {
-    "title": "Learn Any Foreign Language",
-    "subtitle": "With our teachers who write a program for each student, you will be able to make your first sketch after the first lesson.",
-    "cta": "Get started"
+    "title": "Learn any foreign language",
+    "subtitle": "With our teachers who create an individual program for each student, you will be able to speak after the first lesson.",
+    "cta": "Start learning"
   },
-
   "skills": {
     "title": "Skills",
     "more": "Learn more",
     "speaking": {
       "title": "Speaking",
-      "desc": "Improve your English skills and confidence. Live classes and interactive lessons online. 20% extra free for a limited time only. Learn English online and improve your skills through our high-quality courses."
+      "desc": "Improve your English skills and confidence. Live classes and interactive online lessons. Exclusive courses and resources designed specifically for adult learners."
     },
     "writing": {
       "title": "Writing",
-      "desc": "One of the most important and extensive areas of natural science, the science that studies substances, also their composition."
+      "desc": "One of the most important and extensive areas of language learning. Master grammar, syntax and stylistics to create flawless academic and business texts."
     },
     "reading": {
       "title": "Reading",
-      "desc": "Perception and response actions of the user resulting from the use and/or upcoming use of the product, system or service."
+      "desc": "Perception and analysis of textual information. Learn to quickly understand the essence of complex publications, system materials or specialized literature."
     },
     "listening": {
       "title": "Listening",
-      "desc": "Here you can find activities to practise your listening skills. Listening will help you to improve your understanding of the language."
+      "desc": "Here you will find tasks to practice listening comprehension. Listening exercises will help you significantly improve your understanding of live conversational speech."
     }
   },
-
   "about": {
-    "title": "About Us",
-    "desc": "The model offers a framework for discussing problems related to the user's experience, as well as possible ways and means of solving them. Application development begins at the top level (strategy), where the future software product is described quite abstractly from the point of view of the expectations of both users and the customer.",
-    "pupils": "Pupils",
+    "title": "About us",
+    "desc": "Our model offers a clear structure for solving tasks related to user experience, as well as effective methods for overcoming them. The development of individual programs begins at a strategic level, where the future learning process is formed based on the deep expectations of both students and teachers.",
+    "pupils": "Students",
     "teachers": "Teachers",
     "languages": "Foreign languages"
   },
   "pricing": {
     "title": "Pricing",
     "period": "per month",
-    "cta": "Contact",
+    "cta": "Contact us",
     "course1": {
-      "title": "Self-study online course",
-      "desc": "Start learning English online in live classes with qualified EC teachers and students from all over the world."
+      "title": "Online self-study course",
+      "desc": "Start learning English online in live classes with qualified teachers and students from around the world."
     },
     "course2": {
       "title": "Live online classes",
-      "desc": "Interactive group classes with expert teachers. Free 7-day trial to test your skills."
+      "desc": "Interactive group classes with expert teachers. Free 7-day trial period."
     },
     "course3": {
-      "title": "Personal Tuition",
-      "desc": "Online one-to-one English tutoring – enjoy our first session for only $1."
+      "title": "Personal tutoring",
+      "desc": "Individual online English lessons – first session for just $1."
     }
   },
-
   "contact": {
-    "title": "Contact Us",
-    "desc": "Discover your current English level by taking our free online English test. Sign up to our newsletter for learning tips and free resources.",
-    "name_placeholder": "Your Name",
+    "title": "Contact us",
+    "desc": "Discover your current English level by taking our free online test. Subscribe to our newsletter to receive learning tips and free resources.",
+    "name_placeholder": "Your name",
     "cta": "Subscribe",
-    "success": "Successfully subscribed! Redirecting...",
+    "success": "Success! Redirecting...",
     "error": "Please enter a valid phone number"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email address",
+    "password": "Password",
+    "username": "Username",
+    "loginBtn": "Sign in",
+    "registerBtn": "Sign up",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create now",
+    "haveAccount": "Already have an account?",
+    "success": "Registration successful!",
+    "error": "Registration error"
+  },
+  "navAuth": {
+    "profile": "Profile"
+  },
+  "navAuth1": {
+    "signin": "Sign in"
+  },
+  "modal": {
+    "profileTitle": "Profile",
+    "nameLabel": "Username",
+    "phoneLabel": "Phone number",
+    "guest": "Guest",
+    "noPhone": "Not provided",
+    "closeBtn": "Confirm",
+    "namePlaceholder": "John",
+    "profileTitle1": "Contact us"
   }
 }

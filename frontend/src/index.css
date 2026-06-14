@@ -34,17 +34,28 @@
 
 @theme {
   --font-poppins: "Poppins", sans-serif;
-
   --color-dark: #263238;
   --color-muted: #8f95a5;
   --color-bg-main: #ffffff;
+  --color-input-bg: #f3f4f6; /* Светлый фон для инпутов */
 }
 
-@utility dark {
+/* При переключении на .dark меняем значения переменных */
+.dark {
   --color-dark: #ffffff;
   --color-muted: #a0a5b5;
   --color-bg-main: #12181b;
+  --color-input-bg: #1c2327; /* Темный фон для инпутов */
 }
+
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-dark);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

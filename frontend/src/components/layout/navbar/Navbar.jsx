@@ -8,11 +8,14 @@ import whiteLogo from "../../../assets/icons/darkLogo.png";
 import darkLogo from "../../../assets/icons/whiteLogo.png";
 import Button from "../../../components/ui/button/Button";
 import { useTheme } from "../../../hooks/useTheme";
+import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
-
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const navRef = useRef(null);
   const langMenuRef = useRef(null);
 
@@ -20,6 +23,23 @@ const Navbar = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleAuthAction = () => {
+    if (user) {
+      navigate(`/profile/userfeed/${user.userId}/${user.username}`);
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleMobileAuthClick = () => {
+    setIsOpen(false);
+    if (user) {
+      navigate(`/profile/userfeed/${user.userId}/${user.username}`);
+    } else {
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -262,11 +282,12 @@ const Navbar = () => {
           </button>
 
           <div className="ml-1.5 transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]">
-            <Button>{t("auth.signin")}</Button>
+            <Button onClick={handleAuthAction}>
+              {user ? t("navAuth.profile") : t("navAuth1.signin")}
+            </Button>
           </div>
         </div>
 
-        {/* Инструменты Мобильные (Остались relative без фиксирования) */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={toggleTheme}
@@ -373,12 +394,11 @@ const Navbar = () => {
                     ))}
                   </div>
                 </div>
-
                 <Button
                   className="w-full py-3.5 rounded-xl shadow-lg shadow-dark/5"
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleMobileAuthClick}
                 >
-                  {t("auth.signin")}
+                  {user ? t("navAuth.profile") : t("navAuth1.signin")}
                 </Button>
               </div>
             </motion.div>

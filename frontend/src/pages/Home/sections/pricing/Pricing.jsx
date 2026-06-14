@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import AOS from "aos";
@@ -8,10 +8,11 @@ import priceImage1 from "../../../../assets/images/precing-image1.png";
 import priceImage2 from "../../../../assets/images/precing-image2.png";
 import priceImage3 from "../../../../assets/images/precing-image3.png";
 import Button from "../../../../components/ui/button/Button";
+import Modal from "../../../../components/ui/modal/Modal";
 
 const Pricing = () => {
   const { t } = useTranslation();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -72,7 +73,10 @@ const Pricing = () => {
                   / {t("pricing.period")}
                 </span>
               </div>
-              <Button className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]">
+              <Button
+                setIsOpen={setIsModalOpen}
+                className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]"
+              >
                 {t("pricing.cta")}
               </Button>
             </div>
@@ -113,7 +117,10 @@ const Pricing = () => {
                   / {t("pricing.period")}
                 </span>
               </div>
-              <Button className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]">
+              <Button
+                setIsOpen={setIsModalOpen}
+                className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]"
+              >
                 {t("pricing.cta")}
               </Button>
             </div>
@@ -150,13 +157,17 @@ const Pricing = () => {
                   / {t("pricing.period")}
                 </span>
               </div>
-              <Button className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]">
+              <Button
+                setIsOpen={setIsModalOpen}
+                className="w-full py-3 text-sm font-semibold bg-white text-[#263238] dark:bg-white dark:text-[#12181b]"
+              >
                 {t("pricing.cta")}
               </Button>
             </div>
           </motion.div>
         </div>
       </div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

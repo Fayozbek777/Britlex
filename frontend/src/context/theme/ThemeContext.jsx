@@ -1,9 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
-// 1. Создаем сам контекст
 export const ThemeContext = createContext();
 
-// 2. Создаем Провайдер компонент
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     return (

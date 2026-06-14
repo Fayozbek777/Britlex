@@ -4,71 +4,96 @@
     "skills": "Ko'nikmalar",
     "about": "Biz haqimizda",
     "pricing": "Narxlar",
-    "contacts": "Aloqa"
+    "contacts": "Kontaktlar"
   },
-  "auth": {
+  "auth1": {
     "signin": "Kirish"
   },
-
   "hero": {
-    "title": "Istalgan xorijiy tilni o'rganing",
-    "subtitle": "Har bir talaba uchun maxsus dastur tuzadigan o'qituvchilarimiz bilan siz birinchi darsdanoq dastlabki natijaga ershasiz.",
-    "cta": "Boshlash"
+    "title": "Har qanday xorijiy tilni o'rganing",
+    "subtitle": "Har bir talaba uchun individual dastur tuzadigan o'qituvchilarimiz bilan siz birinchi darsdan keyin gapira olasiz.",
+    "cta": "O'qishni boshlash"
   },
-
   "skills": {
     "title": "Ko'nikmalar",
     "more": "Batafsil",
     "speaking": {
-      "title": "Gapirish",
-      "desc": "Ingliz tili ko'nikmalaringizni va o'zingizga bo'lgan ishonchni rivojlantiring. Jonli darslar va interaktiv onlayn mashg'ulotlar. Kattalar uchun maxsus ishlab chiqilgan yuqori sifatli kurslar."
+      "title": "Og'zaki nutq",
+      "desc": "Ingliz tili ko'nikmalaringizni va o'ziga bo'lgan ishonchingizni oshiring. Jonli darslar va interaktiv onlayn mashg'ulotlar. Katta yoshdagi talabalar uchun maxsus ishlab chiqilgan eksklyuziv kurslar."
     },
     "writing": {
       "title": "Yozish",
-      "desc": "Til o'rganishning eng muhim va keng qamrovli yo'nalishlaridan biri. Mukammal akademik va biznes matnlarni yaratish uchun grammatika va uslubiyatni o'zlashtiring."
+      "desc": "Til o'rganishning eng muhim va keng qamrovli sohalaridan biri. Mukammal akademik va biznes matnlarni yaratish uchun grammatika, sintaksis va stilistikani o'zlashtiring."
     },
     "reading": {
       "title": "O'qish",
-      "desc": "Matnli ma'lumotlarni qabul qilish va tahlil qilish. Murakkab nashrlar, tizimli materiallar yoki ixtisoslashtirilgan adabiyotlarning mohiyatini tezda tushunishni o'rganing."
+      "desc": "Matnli ma'lumotlarni qabul qilish va tahlil qilish. Murakkab nashrlar, tizim materiallari yoki maxsus adabiyotlarning mohiyatini tezda tushunishni o'rganing."
     },
     "listening": {
       "title": "Tinglash",
-      "desc": "Bu yerda siz tinglash qobiliyatini rivojlantirish uchun mashqlarni topasiz. Tinglash jonli nutqni yaxshi tushunishingizga yordam beradi."
+      "desc": "Bu yerda siz nutqni tinglab tushunish amaliyoti uchun topshiriqlarni topasiz. Tinglash mashqlari jonli suhbat nutqini tushunishingizni sezilarli darajada yaxshilaydi."
     }
   },
-
   "about": {
     "title": "Biz haqimizda",
-    "desc": "Bizning modelimiz foydalanuvchi tajribasi bilan bog'liq muammolarni hal qilish, shuningdek, ularni bartaraf etishning samarali usullari uchun aniq tuzilmani taklif etadi. Shaxsiy dasturlarni ishlab chiqish strategik darajadan boshlanadi, bu yerda kelgusi o'quv jarayoni talabalar va o'qituvchilarning chuqur kutilmalari asosida shakllantiriladi.",
-    "pupils": "O'quvchilar",
+    "desc": "Bizning modelimiz foydalanuvchi tajribasi bilan bog'liq vazifalarni hal qilish uchun aniq tuzilmani, shuningdek ularni yengishning samarali usullarini taklif qiladi. Individual dasturlarni ishlab chiqish strategik darajadan boshlanadi, bu yerda kelajakdagi o'quv jarayoni talabalar va o'qituvchilarning chuqur kutishlari asosida shakllantiriladi.",
+    "pupils": "Talabalar",
     "teachers": "O'qituvchilar",
     "languages": "Xorijiy tillar"
   },
-
   "pricing": {
-    "title": "Narxlar",
+    "title": "Tariflar",
     "period": "oyiga",
     "cta": "Bog'lanish",
     "course1": {
-      "title": "Mustaqil o'rganish kursi",
-      "desc": "Butun dunyodagi malakali o'qituvchilar va talabalar bilan jonli darslarda ingliz tilini onlayn o'rganishni boshlang."
+      "title": "Onlayn o'z-o'zini o'qitish kursi",
+      "desc": "Butun dunyodan malakali o'qituvchilar va talabalar bilan jonli darslarda ingliz tilini onlayn o'rganishni boshlang."
     },
     "course2": {
-      "title": "Jonli onlayn darslar",
-      "desc": "Ekspert o'qituvchilar bilan interaktiv guruh darslari. Sinov uchun 7 kunlik bepul davr."
+      "title": "Jonli onlayn sinflar",
+      "desc": "Ekspert o'qituvchilar bilan interaktiv guruh darslari. 7 kunlik bepul sinov muddati."
     },
     "course3": {
-      "title": "Shaxsiy ta'lim",
-      "desc": "Onlayn yuzma-yuz ingliz tili darslari – birinchi mashg'ulotdan atigi $1 evaziga bahramand bo'ling."
+      "title": "Shaxsiy o'qitish",
+      "desc": "Ingliz tili bo'yicha individual onlayn darslar – birinchi sessiya faqat $1."
     }
   },
-
   "contact": {
     "title": "Biz bilan bog'lanish",
-    "desc": "Bepul onlayn ingliz tili testimizni topshirish orqali joriy darajangizni bilib oling. O'quv maslahatlari va bepul resurslarni olish uchun axborot bülletenimizga a'zo bo'ling.",
-    "name_placeholder": "Sizning ismingiz",
+    "desc": "Bepul onlayn testimizni topshirib, joriy ingliz tili darajangizni bilib oling. O'qitish bo'yicha maslahatlar va bepul resurslarni olish uchun yangiliklar byulletenimizga obuna bo'ling.",
+    "name_placeholder": "Ismingiz",
     "cta": "Obuna bo'lish",
-    "success": "Muvaffaqiyat! Yo'naltirilmoqda...",
-    "error": "Iltimos, telefon raqamini tog'ri kiriting"
+    "success": "Muvaffaqiyatli! Yo'naltirilmoqda...",
+    "error": "Iltimos, to'g'ri telefon raqamini kiriting"
+  },
+  "auth": {
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "email": "Email manzil",
+    "password": "Parol",
+    "username": "Foydalanuvchi nomi",
+    "loginBtn": "Kirish",
+    "registerBtn": "Ro'yxatdan o'tish",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "createAccount": "Hozir yaratish",
+    "haveAccount": "Hisobingiz bormi?",
+    "success": "Ro'yxatdan o'tish muvaffaqiyatli!",
+    "error": "Ro'yxatdan o'tishda xatolik"
+  },
+  "navAuth": {
+    "profile": "Profil"
+  },
+  "navAuth1": {
+    "signin": "Kirish"
+  },
+  "modal": {
+    "profileTitle": "Profil",
+    "nameLabel": "Foydalanuvchi nomi",
+    "phoneLabel": "Telefon raqami",
+    "guest": "Mehmon",
+    "noPhone": "Ko'rsatilmagan",
+    "closeBtn": "Tasdiqlash",
+    "namePlaceholder": "Ism",
+    "profileTitle1": "Savollar bo'yicha"
   }
 }
