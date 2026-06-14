@@ -35,7 +35,7 @@ const Login = () => {
   const languages = [
     { code: "ru", name: "Русский" },
     { code: "uz", name: "O'zbekcha" },
-    { code: "eng", name: "English" },
+    { code: "en", name: "English" },
   ];
 
   useEffect(() => {
@@ -53,30 +53,36 @@ const Login = () => {
     const toastId = toast.loading(t("auth.loading", "Загрузка..."));
 
     try {
-      const res = await axios.post("/api/login", formData);
-      console.log("Данные от сервера:", res.data);
+      const res = await axios.post("http://localhost:5000/api/login", formData);
 
-      const userData = res.data;
+      // Сохраняем ТОКЕН
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
 
-      // Сохраняем в контекст (в AuthProvider логикаsetItem уже есть)
-      login(userData);
+      // Сохраняем пользователя
+      const userData = res.data.user;
+      if (userData) {
+        localStorage.setItem("user", JSON.stringify(userData));
+        login(userData);
+      }
 
       toast.dismiss(toastId);
       toast.success(t("auth.success", "Добро пожаловать!"));
 
-      // Используем то поле, которое реально приходит от сервера (id или userId)
-      const userId = userData.id || userData.userId;
-
-      navigate(`/profile/userfeed/${userId}/${userData.username}`);
+      // Перенаправление
+      const userId = userData.userId || userData.id;
+      navigate(`/profile/${userId}/${userData.username}`);
     } catch (e) {
       toast.dismiss(toastId);
       setIsLoading(false);
-
+      console.error("Login error:", e);
       const errorMessage =
         e.response?.data?.message || t("auth.error", "Ошибка");
       toast.error(errorMessage);
     }
   };
+
   return (
     <div className="min-h-screen bg-[var(--color-bg-main)] text-[var(--color-dark)] transition-colors duration-300 flex items-center justify-center p-4">
       <button
@@ -142,6 +148,8 @@ const Login = () => {
           <input
             className="w-full p-4 bg-[var(--color-input-bg)] text-[var(--color-dark)] rounded-2xl outline-none border-2 border-transparent focus:border-blue-500 transition-all"
             placeholder={t("auth.email")}
+            type="email"
+            value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -152,6 +160,7 @@ const Login = () => {
               className="w-full p-4 bg-[var(--color-input-bg)] text-[var(--color-dark)] rounded-2xl outline-none border-2 border-transparent focus:border-blue-500 transition-all"
               type={showPassword ? "text" : "password"}
               placeholder={t("auth.password")}
+              value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
@@ -167,7 +176,8 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all"
+            disabled={isLoading}
+            className="w-full py-4 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50"
           >
             {isLoading ? (
               <Loader2 className="animate-spin mx-auto" />

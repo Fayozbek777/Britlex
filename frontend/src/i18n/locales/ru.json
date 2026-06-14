@@ -95,5 +95,31 @@
     "closeBtn": "Подвердить",
     "namePlaceholder": "Иван",
     "profileTitle1": "По вопросам"
+  },
+  "profile": {
+    "welcome": "Добро пожаловать",
+    "memberSince": "Участник с",
+    "myCourses": "Домашная Работа",
+    "settings": "Настройки",
+    "billing": "Оплата",
+    "certificates": "Сертификаты",
+    "dictionary": "Словарь",
+    "coursesEnrolled": "Курсов записано",
+    "followers": "Подписчиков",
+    "completed": "Завершено",
+    "notifications": "Уведомления",
+    "logout": "Выйти",
+    "user": "Пользователь",
+    "logoutSuccess": "Вы вышли из системы",
+    "languageChanged": "Язык изменен на",
+    "darkMode": "Темная тема включена",
+    "lightMode": "Светлая тема включена"
+  },
+  "certificates": {
+    "title": "Мои сертификаты",
+    "issued": "выдано",
+    "download": "Скачать",
+    "pending": "В обработке",
+    "noCertificates": "У вас пока нет сертификатов"
   }
 }

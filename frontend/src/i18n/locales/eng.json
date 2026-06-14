@@ -95,5 +95,33 @@
     "closeBtn": "Confirm",
     "namePlaceholder": "John",
     "profileTitle1": "Contact us"
+  },
+
+  "profile": {
+    "welcome": "Welcome",
+    "memberSince": "Member since",
+    "myCourses": "Homework",
+    "settings": "Settings",
+    "billing": "Billing",
+    "certificates": "Certificates",
+    "dictionary": "Dictionary",
+    "coursesEnrolled": "Courses Enrolled",
+    "followers": "Followers",
+    "completed": "Completed",
+    "notifications": "Notifications",
+    "logout": "Logout",
+    "user": "User",
+    "logoutSuccess": "You have been logged out",
+    "languageChanged": "Language changed to",
+    "darkMode": "Dark mode enabled",
+    "lightMode": "Light mode enabled"
+  },
+
+  "certificates": {
+    "title": "My Certificates",
+    "issued": "issued",
+    "download": "Download",
+    "pending": "Pending",
+    "noCertificates": "You don't have any certificates yet"
   }
 }

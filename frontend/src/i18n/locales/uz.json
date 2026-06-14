@@ -95,5 +95,32 @@
     "closeBtn": "Tasdiqlash",
     "namePlaceholder": "Ism",
     "profileTitle1": "Savollar bo'yicha"
+  },
+  "profile": {
+    "welcome": "Xush kelibsiz",
+    "memberSince": "A'zo bo'lgan",
+    "myCourses": "Uy ishi",
+    "settings": "Sozlamalar",
+    "billing": "To'lov",
+    "certificates": "Sertifikatlar",
+    "dictionary": "Lug'at",
+    "coursesEnrolled": "Kurslar soni",
+    "followers": "Kuzatuvchilar",
+    "completed": "Tugallangan",
+    "notifications": "Bildirishnomalar",
+    "logout": "Chiqish",
+    "user": "Foydalanuvchi",
+    "logoutSuccess": "Tizimdan chiqdingiz",
+    "languageChanged": "Til o'zgartirildi",
+    "darkMode": "Qorong'u rejim yoqildi",
+    "lightMode": "Yorug' rejim yoqildi"
+  },
+
+  "certificates": {
+    "title": "Mening sertifikatlarim",
+    "issued": "berilgan",
+    "download": "Yuklab olish",
+    "pending": "Jarayonda",
+    "noCertificates": "Hali sertifikatlaringiz yo'q"
   }
 }

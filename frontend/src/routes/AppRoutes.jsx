@@ -10,49 +10,60 @@ import Privacy from "../pages/Legal/Privacy";
 import Terms from "../pages/Legal/Terms";
 import Register from "../pages/Auth/Register/Register";
 import Profile from "../pages/Profile/Profile";
-
-// Импорт компонентов вкладок профиля
-import MyCourses from "../pages/Profile/tabs/MyCourses";
 import Settings from "../pages/Profile/tabs/Settings";
 import Billing from "../pages/Profile/tabs/Billing";
+import Certificates from "../pages/Profile/tabs/Certificates";
+import Dictionary from "../pages/Profile/tabs/Dictionary";
+import Homework from "../pages/Profile/tabs/Homework";
 
 const AppRoutes = () => {
   return (
-    <div className="min-h-screen bg-bg-main text-dark transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--color-bg-main)] text-[var(--color-dark)] transition-colors duration-300">
       <Routes>
-        {/* Публичные маршруты */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/fr" element={<Forbidden />} />
+        <Route path="/forbidden" element={<Forbidden />} />
         <Route path="/cookie" element={<Cookie />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
 
-        {/* Защищенные маршруты */}
         <Route element={<ProtectedRoutes />}>
-          {/* 1. Свой профиль пользователя */}
+          {/* Свой профиль */}
           <Route path="/profile" element={<Profile />}>
-            <Route index element={<Navigate to="courses" replace />} />
-            <Route path="courses" element={<MyCourses />} />
-            <Route path="settings" element={<Settings />} />
+            <Route index element={<Navigate to="homework" replace />} />
+            <Route path="homework" element={<Homework />} />
+            <Route path="certificates" element={<Certificates />} />
+            <Route path="dictionary" element={<Dictionary />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
 
-          {/* 2. Просмотр чужого профиля (userfeed) */}
+          {/* Чужой профиль с параметрами */}
+          <Route path="/profile/:userId/:username" element={<Profile />}>
+            <Route index element={<Navigate to="homework" replace />} />
+            <Route path="homework" element={<Homework />} />
+            <Route path="certificates" element={<Certificates />} />
+            <Route path="dictionary" element={<Dictionary />} />
+            <Route path="billing" element={<Billing />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+
+          {/* Маршрут для userfeed (для обратной совместимости) */}
           <Route
             path="/profile/userfeed/:userId/:username"
             element={<Profile />}
           >
-            <Route index element={<Navigate to="courses" replace />} />
-            <Route path="courses" element={<MyCourses />} />
-            <Route path="settings" element={<Settings />} />
+            <Route index element={<Navigate to="homework" replace />} />
+            <Route path="homework" element={<Homework />} />
+            <Route path="certificates" element={<Certificates />} />
+            <Route path="dictionary" element={<Dictionary />} />
             <Route path="billing" element={<Billing />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
 
-        {/* 404 Ошибка — Маршрут не найден */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
