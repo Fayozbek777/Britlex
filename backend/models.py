@@ -14,6 +14,7 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     phone = db.Column(db.String(20), nullable=True)
     avatar = db.Column(db.Text, nullable=True)
+    role = db.Column(db.String(20), default="student")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def set_password(self, password):
@@ -30,6 +31,37 @@ class User(db.Model):
             "email": self.email,
             "phone": self.phone,
             "avatar": self.avatar,
+            "role": self.role,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+# Новая модель Task
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    due_date = db.Column(db.String(50), nullable=False)
+    status = db.Column(
+        db.String(20), default="pending"
+    )  # 'pending', 'in_progress', 'done'
+    icon = db.Column(db.String(10), default="📝")
+    created_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Отношения
+    creator = db.relationship("User", backref="created_tasks")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "due_date": self.due_date,
+            "status": self.status,
+            "icon": self.icon,
+            "created_by": self.created_by,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 
 

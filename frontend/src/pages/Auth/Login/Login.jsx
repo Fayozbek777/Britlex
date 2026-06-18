@@ -53,9 +53,10 @@ const Login = () => {
     const toastId = toast.loading(t("auth.loading", "Загрузка..."));
 
     try {
-      const res = await axios.post("http://localhost:5000/api/login", formData);
+      const res = await axios.post("/api/login", formData);
+      console.log("Данные от сервера:", res.data);
 
-      // Сохраняем ТОКЕН
+      // Сохраняем токен
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
@@ -70,9 +71,21 @@ const Login = () => {
       toast.dismiss(toastId);
       toast.success(t("auth.success", "Добро пожаловать!"));
 
-      // Перенаправление
+      // ⚠️ ПЕРЕНАПРАВЛЕНИЕ В ЗАВИСИМОСТИ ОТ РОЛИ ⚠️
       const userId = userData.userId || userData.id;
-      navigate(`/profile/${userId}/${userData.username}`);
+
+      if (userData.role === "admin") {
+        // Админ -> админ панель
+        const adminPath =
+          import.meta.env.VITE_ADMIN_DASHBOARD_PATH || "/admin/dashboard";
+        navigate(adminPath);
+      } else if (userData.role === "teacher") {
+        // Учитель -> teacher dashboard
+        navigate("/teacher/dashboard");
+      } else {
+        // Студент -> профиль
+        navigate(`/profile/${userId}/${userData.username}`);
+      }
     } catch (e) {
       toast.dismiss(toastId);
       setIsLoading(false);

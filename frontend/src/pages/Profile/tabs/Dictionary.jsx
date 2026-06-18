@@ -45,7 +45,6 @@ const Dictionary = () => {
     }
   }, []);
 
-  // Загрузка сохраненных слов с сервера
   const fetchSavedWords = async () => {
     if (!token) {
       setLoadingSaved(false);
@@ -71,7 +70,6 @@ const Dictionary = () => {
     fetchSavedWords();
   }, []);
 
-  // Функция для перевода слова через API
   const translateWord = async (word, targetLang) => {
     try {
       const response = await fetch(

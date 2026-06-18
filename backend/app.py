@@ -3,12 +3,11 @@ import html
 import requests
 import jwt
 import datetime
-import uuid
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from functools import wraps
+from models import db, User, SavedWord, SavedCard
 
 app = Flask(__name__)
 
@@ -19,7 +18,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "your-secret-key-2025"
 
-db = SQLAlchemy(app)
+db.init_app(app)
 bcrypt = Bcrypt(app)
 
 # Настройка CORS
@@ -29,91 +28,23 @@ CORS(
     supports_credentials=True,
 )
 
-
-# Модель пользователя
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    public_id = db.Column(db.String(50), unique=True, default=lambda: str(uuid.uuid4()))
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
-    phone = db.Column(db.String(20), nullable=True)
-    avatar = db.Column(db.Text, nullable=True)
-
-    def set_password(self, password):
-        self.password = bcrypt.generate_password_hash(password).decode("utf-8")
-
-    def check_password(self, password):
-        return bcrypt.check_password_hash(self.password, password)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "userId": self.public_id,
-            "username": self.username,
-            "email": self.email,
-            "phone": self.phone,
-            "avatar": self.avatar,
-        }
-
-
-# Модель сохраненных слов (исправленная)
-class SavedWord(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    word = db.Column(db.String(100), nullable=False)
-    phonetic = db.Column(db.String(200))
-    definition = db.Column(db.Text)
-    example = db.Column(db.Text)
-    audio_url = db.Column(db.String(500))
-    translation_ru = db.Column(db.String(500))
-    translation_uz = db.Column(db.String(500))
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "word": self.word,
-            "phonetic": self.phonetic,
-            "definition": self.definition,
-            "example": self.example,
-            "audio_url": self.audio_url,
-            "translations": {
-                "en": self.word,
-                "ru": self.translation_ru,
-                "uz": self.translation_uz,
-            },
-            "date": self.created_at.isoformat() if self.created_at else None,
-        }
-
-
-# Модель карт
-class SavedCard(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    card_number = db.Column(db.String(50), nullable=False)
-    card_name = db.Column(db.String(100), nullable=False)
-    card_expiry = db.Column(db.String(10), nullable=False)
-    card_brand = db.Column(db.String(20), nullable=False)
-    last4 = db.Column(db.String(4), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "card_number": self.card_number,
-            "card_name": self.card_name,
-            "card_expiry": self.card_expiry,
-            "card_brand": self.card_brand,
-            "last4": self.last4,
-        }
-
-
-# Создание таблиц
+# Создание таблиц и админа
 with app.app_context():
+    # Удаляем старую БД и создаем новую
     db.drop_all()
     db.create_all()
-    print("✅ Database created!")
+    print("✅ Database recreated with role column!")
+
+    # Создаем админа по умолчанию
+    admin = User.query.filter_by(email="admin@britlex.uz").first()
+    if not admin:
+        admin = User(username="admin", email="admin@britlex.uz", role="admin")
+        admin.set_password("admin123")
+        db.session.add(admin)
+        db.session.commit()
+        print("✅ Admin created: admin@britlex.uz / admin123")
+
+    print("✅ Database ready!")
 
 
 # Декоратор проверки токена
@@ -141,6 +72,17 @@ def token_required(f):
     return decorated
 
 
+# Декоратор проверки админа
+def admin_required(f):
+    @wraps(f)
+    def decorated(current_user, *args, **kwargs):
+        if current_user.role != "admin":
+            return jsonify({"error": "Admin access required"}), 403
+        return f(current_user, *args, **kwargs)
+
+    return decorated
+
+
 # Логин
 @app.route("/api/login", methods=["POST", "OPTIONS"])
 def login():
@@ -158,6 +100,7 @@ def login():
             token = jwt.encode(
                 {
                     "public_id": user.public_id,
+                    "role": user.role,
                     "exp": datetime.datetime.utcnow() + datetime.timedelta(days=7),
                 },
                 app.config["SECRET_KEY"],
@@ -193,7 +136,7 @@ def register():
         if User.query.filter_by(email=data["email"]).first():
             return jsonify({"message": "Email already exists"}), 400
 
-        new_user = User(username=data["username"], email=data["email"])
+        new_user = User(username=data["username"], email=data["email"], role="student")
         new_user.set_password(data["password"])
         db.session.add(new_user)
         db.session.commit()
@@ -201,6 +144,7 @@ def register():
         token = jwt.encode(
             {
                 "public_id": new_user.public_id,
+                "role": new_user.role,
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(days=7),
             },
             app.config["SECRET_KEY"],
@@ -220,6 +164,282 @@ def register():
     except Exception as e:
         print(f"Register error: {e}")
         return jsonify({"message": str(e)}), 500
+
+
+# Добавьте в app.py после других эндпоинтов:
+
+
+# Получить всех учителей (только админ)
+@app.route("/api/admin/teachers", methods=["GET", "OPTIONS"])
+@token_required
+@admin_required
+def get_teachers(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    teachers = User.query.filter_by(role="teacher").all()
+    return jsonify({"teachers": [teacher.to_dict() for teacher in teachers]}), 200
+
+
+# Создать учителя (только админ)
+@app.route("/api/admin/teachers", methods=["POST", "OPTIONS"])
+@token_required
+@admin_required
+def create_teacher(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    try:
+        data = request.get_json()
+        username = data.get("username")
+        email = data.get("email")
+        password = data.get("password")
+        phone = data.get("phone", "")
+
+        if not username or not email or not password:
+            return jsonify({"error": "Username, email and password required"}), 400
+
+        # Проверка существующего пользователя
+        if User.query.filter_by(email=email).first():
+            return jsonify({"error": "Email already exists"}), 400
+
+        if User.query.filter_by(username=username).first():
+            return jsonify({"error": "Username already exists"}), 400
+
+        new_teacher = User(username=username, email=email, phone=phone, role="teacher")
+        new_teacher.set_password(password)
+        db.session.add(new_teacher)
+        db.session.commit()
+
+        return (
+            jsonify(
+                {
+                    "message": "Teacher created successfully",
+                    "teacher": new_teacher.to_dict(),
+                }
+            ),
+            201,
+        )
+    except Exception as e:
+        print(f"Create teacher error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# Удалить учителя (только админ)
+@app.route("/api/admin/teachers/<int:teacher_id>", methods=["DELETE", "OPTIONS"])
+@token_required
+@admin_required
+def delete_teacher(current_user, teacher_id):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    teacher = User.query.filter_by(id=teacher_id, role="teacher").first()
+    if not teacher:
+        return jsonify({"error": "Teacher not found"}), 404
+
+    db.session.delete(teacher)
+    db.session.commit()
+    return jsonify({"message": "Teacher deleted"}), 200
+
+
+# ========== TASK ENDPOINTS ==========
+
+
+# Получить все задания (для всех пользователей)
+@app.route("/api/tasks", methods=["GET", "OPTIONS"])
+@token_required
+def get_tasks(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    tasks = Task.query.order_by(Task.created_at.desc()).all()
+    return jsonify({"tasks": [task.to_dict() for task in tasks]}), 200
+
+
+# Создать задание (только учитель или админ)
+@app.route("/api/tasks", methods=["POST", "OPTIONS"])
+@token_required
+def create_task(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    # Проверка роли
+    if current_user.role not in ["teacher", "admin"]:
+        return jsonify({"error": "Only teachers and admins can create tasks"}), 403
+
+    try:
+        data = request.get_json()
+        title = data.get("title")
+        description = data.get("description", "")
+        due_date = data.get("due_date")
+        icon = data.get("icon", "📝")
+
+        if not title or not due_date:
+            return jsonify({"error": "Title and due date are required"}), 400
+
+        new_task = Task(
+            title=title,
+            description=description,
+            due_date=due_date,
+            icon=icon,
+            status="pending",
+            created_by=current_user.id,
+        )
+
+        db.session.add(new_task)
+        db.session.commit()
+
+        return (
+            jsonify(
+                {"message": "Task created successfully", "task": new_task.to_dict()}
+            ),
+            201,
+        )
+    except Exception as e:
+        print(f"Create task error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# Обновить статус задания (для всех пользователей)
+@app.route("/api/tasks/<int:task_id>", methods=["PUT", "OPTIONS"])
+@token_required
+def update_task_status(current_user, task_id):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+
+    try:
+        data = request.get_json()
+        status = data.get("status")
+
+        if status not in ["pending", "in_progress", "done"]:
+            return jsonify({"error": "Invalid status"}), 400
+
+        task.status = status
+        db.session.commit()
+
+        return (
+            jsonify({"message": "Task updated successfully", "task": task.to_dict()}),
+            200,
+        )
+    except Exception as e:
+        print(f"Update task error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+
+# Удалить задание (только учитель или админ)
+@app.route("/api/tasks/<int:task_id>", methods=["DELETE", "OPTIONS"])
+@token_required
+def delete_task(current_user, task_id):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    # Проверка роли
+    if current_user.role not in ["teacher", "admin"]:
+        return jsonify({"error": "Only teachers and admins can delete tasks"}), 403
+
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return jsonify({"message": "Task deleted successfully"}), 200
+
+
+# Получить всех пользователей (только админ)
+@app.route("/api/admin/users", methods=["GET", "OPTIONS"])
+@token_required
+@admin_required
+def get_all_users(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    users = User.query.all()
+    return jsonify({"users": [user.to_dict() for user in users]}), 200
+
+
+# Получить статистику (только админ)
+@app.route("/api/admin/stats", methods=["GET", "OPTIONS"])
+@token_required
+@admin_required
+def get_stats(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    total_students = User.query.filter_by(role="student").count()
+    total_words = SavedWord.query.count()
+    total_cards = SavedCard.query.count()
+
+    return (
+        jsonify(
+            {
+                "total_students": total_students,
+                "total_words": total_words,
+                "total_cards": total_cards,
+            }
+        ),
+        200,
+    )
+
+
+# Получить всех студентов (только админ)
+# Получить всех студентов (только админ)
+@app.route("/api/admin/students", methods=["GET", "OPTIONS"])
+@token_required
+@admin_required
+def get_students(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    # Получаем всех пользователей с ролью student
+    students = User.query.filter_by(role="student").all()
+
+    # Добавляем дополнительную информацию (количество слов и карт)
+    result = []
+    for student in students:
+        words_count = SavedWord.query.filter_by(user_id=student.id).count()
+        cards_count = SavedCard.query.filter_by(user_id=student.id).count()
+
+        student_dict = student.to_dict()
+        student_dict["words_count"] = words_count
+        student_dict["cards_count"] = cards_count
+        result.append(student_dict)
+
+    return jsonify({"students": result}), 200
+
+
+# Удалить студента (только админ)
+@app.route("/api/admin/students/<int:student_id>", methods=["DELETE", "OPTIONS"])
+@token_required
+@admin_required
+def delete_student(current_user, student_id):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    student = User.query.filter_by(id=student_id, role="student").first()
+    if not student:
+        return jsonify({"error": "Student not found"}), 404
+
+    db.session.delete(student)
+    db.session.commit()
+    return jsonify({"message": "Student deleted"}), 200
+
+
+# Получить все слова всех пользователей (только админ)
+@app.route("/api/admin/words", methods=["GET", "OPTIONS"])
+@token_required
+@admin_required
+def get_all_words(current_user):
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    words = SavedWord.query.all()
+    return jsonify({"words": [word.to_dict() for word in words]}), 200
 
 
 # Получить профиль
@@ -302,7 +522,7 @@ def change_password(current_user):
         return jsonify({"error": str(e)}), 500
 
 
-# Получить все слова (исправленный)
+# Получить все слова
 @app.route("/api/dictionary", methods=["GET", "OPTIONS"])
 @token_required
 def get_dictionary(current_user):
@@ -317,7 +537,7 @@ def get_dictionary(current_user):
     return jsonify({"words": [word.to_dict() for word in words]}), 200
 
 
-# Сохранить слово (исправленный)
+# Сохранить слово
 @app.route("/api/dictionary", methods=["POST", "OPTIONS"])
 @token_required
 def save_word(current_user):
